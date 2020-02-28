@@ -9,18 +9,20 @@
     offset-x
     transition="slide-y-transition"
   >
-    <v-btn
-      slot="activator"
-      class="elevation-0"
-      color="grey"
-      dark
-      fab
-      fixed
-      style="top: 96px;"
-      top
-    >
-      <v-icon>mdi-settings</v-icon>
-    </v-btn>
+    <template v-slot:activator="{on}">
+      <v-btn
+        v-on="on"
+        class="elevation-0"
+        color="grey"
+        dark
+        fab
+        fixed
+        style="top: 96px;"
+        top
+      >
+        <v-icon>mdi-settings</v-icon>
+      </v-btn>
+    </template>
     <v-card>
       <v-container grid-list-xl>
         <v-layout wrap>
@@ -33,15 +35,12 @@
                 :key="c"
                 :class="[c === color ? 'color-active color-' + c: 'color-' + c]"
                 size="23"
-
                 @click="setColor(c)"
               />
             </v-layout>
-            <v-divider class="mt-3"/>
+            <v-divider class="mt-3" />
           </v-flex>
-          <v-flex
-            xs12
-          >
+          <v-flex xs12>
             <div class="text-xs-center body-2 text-uppercase sidebar-filter">Images</div>
           </v-flex>
           <v-flex
@@ -90,7 +89,7 @@
                   fab
                   icon
                   small
-                  round
+                  rounded
                 >
                   <v-icon>mdi-facebook</v-icon>
                 </v-btn>
@@ -100,7 +99,7 @@
                   fab
                   icon
                   small
-                  round
+                  rounded
                 >
                   <v-icon>mdi-twitter</v-icon>
                 </v-btn>
@@ -154,8 +153,8 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-avatar,
-  .v-responsive {
-    cursor: pointer;
-  }
+.v-avatar,
+.v-responsive {
+  cursor: pointer;
+}
 </style>

@@ -13,12 +13,11 @@
       :src="image"
       height="100%"
     >
-      <v-layout
+      <v-list
         class="fill-height"
-        tag="v-list"
         column
       >
-        <v-list-item avatar>
+        <v-list-item>
           <v-list-item-avatar color="white">
             <v-img
               :src="logo"
@@ -36,7 +35,6 @@
           :key="i"
           :to="link.to"
           :active-class="color"
-          avatar
           class="v-list-item"
         >
           <v-list-item-action>
@@ -56,7 +54,7 @@
             Upgrade To PRO
           </v-list-item-title>
         </v-list-item>
-      </v-layout>
+      </v-list>
     </v-img>
   </v-navigation-drawer>
 </template>

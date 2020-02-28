@@ -5,9 +5,7 @@
     style="flex-wrap: wrap;"
   >
     <material-card color="green">
-      <div
-        slot="header"
-      >
+      <div slot="header">
         <div class="title font-weight-light mb-2">Material Design Icons</div>
         <div class="category font-weight-thin">
           See all available
@@ -33,7 +31,8 @@
         >
           <v-tooltip
             top
-            content-class="top">
+            content-class="top"
+          >
             <v-icon slot="activator">
               {{ icon }}
             </v-icon>
@@ -50,7 +49,7 @@
         color="success"
         href="https://materialdesignicons.com/"
         target="_blank"
-        round
+        rounded
       >
         <v-icon left>mdi-material-design</v-icon>
         <span>See all icons</span>
