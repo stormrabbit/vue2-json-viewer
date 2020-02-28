@@ -33,9 +33,12 @@
             top
             content-class="top"
           >
-            <v-icon slot="activator">
-              {{ icon }}
-            </v-icon>
+            <template v-slot:activator="{ on }">
+              <v-icon v-on="on">
+                {{ icon }}
+              </v-icon>
+            </template>
+
             <span>{{ icon }}</span>
           </v-tooltip>
         </v-flex>

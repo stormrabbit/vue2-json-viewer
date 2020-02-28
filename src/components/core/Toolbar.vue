@@ -48,22 +48,24 @@
           offset-y
           transition="slide-y-transition"
         >
-          <router-link
-            v-ripple
-            slot="activator"
-            class="toolbar-items"
-            to="/notifications"
-          >
-            <v-badge
-              color="error"
-              overlap
+          <template v-slot:activator="{on}">
+            <router-link
+              v-ripple
+              v-on="on"
+              class="toolbar-items"
+              to="/notifications"
             >
-              <template slot="badge">
-                {{ notifications.length }}
-              </template>
-              <v-icon color="tertiary">mdi-bell</v-icon>
-            </v-badge>
-          </router-link>
+              <v-badge
+                color="error"
+                overlap
+              >
+                <template slot="badge">
+                  {{ notifications.length }}
+                </template>
+                <v-icon color="tertiary">mdi-bell</v-icon>
+              </v-badge>
+            </router-link>
+          </template>
           <v-card>
             <v-list dense>
               <v-list-item

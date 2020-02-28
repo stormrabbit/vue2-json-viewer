@@ -243,28 +243,33 @@
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="success"
+                          icon
+                        >
+                          <v-icon color="primary">mdi-pencil</v-icon>
+                        </v-btn>
+                      </template>
+
                       <span>Edit</span>
                     </v-tooltip>
                     <v-tooltip
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon
-                      >
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="danger"
+                          icon
+                        >
+                          <v-icon color="error">mdi-close</v-icon>
+                        </v-btn>
+                      </template>
                       <span>Close</span>
                     </v-tooltip>
 
@@ -286,14 +291,16 @@
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="success"
+                          icon
+                        >
+                          <v-icon color="primary">mdi-pencil</v-icon>
+                        </v-btn>
+                      </template>
                       <span>Edit</span>
                     </v-tooltip>
 
@@ -301,14 +308,16 @@
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon
-                      >
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="danger"
+                          icon
+                        >
+                          <v-icon color="error">mdi-close</v-icon>
+                        </v-btn>
+                      </template>
                       <span>Close</span>
                     </v-tooltip>
                   </div>
@@ -329,28 +338,32 @@
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="success"
+                          icon
+                        >
+                          <v-icon color="primary">mdi-pencil</v-icon>
+                        </v-btn>
+                      </template>
                       <span>Edit</span>
                     </v-tooltip>
                     <v-tooltip
                       top
                       content-class="top"
                     >
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon
-                      >
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          v-on="on"
+                          class="v-btn--simple"
+                          color="danger"
+                          icon
+                        >
+                          <v-icon color="error">mdi-close</v-icon>
+                        </v-btn>
+                      </template>
                       <span>Close</span>
                     </v-tooltip>
 
