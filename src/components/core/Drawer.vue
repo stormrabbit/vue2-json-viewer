@@ -1,45 +1,15 @@
-<template>
-  <v-navigation-drawer
-    id="app-drawer"
-    v-model="inputValue"
-    app
-    dark
-    floating
-    persistent
-    mobile-break-point="991"
-    width="260"
-  >
-    <v-list
-      class="fill-height"
-      column
-    >
-      <v-list-item>
-        <v-list-item-avatar color="white">
-          <v-img
-            :src="logo"
-            height="34"
-            contain
-          />
-        </v-list-item-avatar>
-        <v-list-item-title class="title">
-          Vuetify MD
-        </v-list-item-title>
-      </v-list-item>
-      <v-divider />
-      <v-list-item
-        v-for="(link, i) in links"
-        :key="i"
-        :to="link.to"
-        :active-class="color"
-        class="v-list-item"
-      >
-        <v-list-item-action>
-          <v-icon>{{ link.icon }}</v-icon>
-        </v-list-item-action>
-        <v-list-item-title v-text="link.text" />
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+<template lang="pug">
+   v-navigation-drawer(id="app-drawer" v-model="inputValue" app dark floating persistent mobile-break-point="991" width="260")
+      v-list(class="fill-height" column)
+        v-list-item
+          v-list-item-avatar(color="white")
+            v-img(:src="logo" height="34" contain)
+          v-list-item-title(class="title") Vuetify MD
+        v-divider
+        v-list-item(v-for="(link, i) in links" :key="i" :to="link.to" :active-class="color" class="v-list-item")
+          v-list-item-action
+            v-icon {{ link.icon }}
+          v-list-item-title(v-text="link.text")
 </template>
 
 <script>
