@@ -9,53 +9,36 @@
     mobile-break-point="991"
     width="260"
   >
-    <v-img
-      :src="image"
-      height="100%"
+    <v-list
+      class="fill-height"
+      column
     >
-      <v-list
-        class="fill-height"
-        column
+      <v-list-item>
+        <v-list-item-avatar color="white">
+          <v-img
+            :src="logo"
+            height="34"
+            contain
+          />
+        </v-list-item-avatar>
+        <v-list-item-title class="title">
+          Vuetify MD
+        </v-list-item-title>
+      </v-list-item>
+      <v-divider />
+      <v-list-item
+        v-for="(link, i) in links"
+        :key="i"
+        :to="link.to"
+        :active-class="color"
+        class="v-list-item"
       >
-        <v-list-item>
-          <v-list-item-avatar color="white">
-            <v-img
-              :src="logo"
-              height="34"
-              contain
-            />
-          </v-list-item-avatar>
-          <v-list-item-title class="title">
-            Vuetify MD
-          </v-list-item-title>
-        </v-list-item>
-        <v-divider />
-        <v-list-item
-          v-for="(link, i) in links"
-          :key="i"
-          :to="link.to"
-          :active-class="color"
-          class="v-list-item"
-        >
-          <v-list-item-action>
-            <v-icon>{{ link.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-title v-text="link.text" />
-        </v-list-item>
-        <v-list-item
-          active-class="success"
-          class="v-list-item v-list__tile--buy"
-          to="/upgrade"
-        >
-          <v-list-item-action>
-            <v-icon>mdi-package-up</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="font-weight-light">
-            Upgrade To PRO
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-img>
+        <v-list-item-action>
+          <v-icon>{{ link.icon }}</v-icon>
+        </v-list-item-action>
+        <v-list-item-title v-text="link.text" />
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
@@ -80,11 +63,6 @@ export default {
         to: '/',
         icon: 'mdi-view-dashboard',
         text: 'Dashboard'
-      },
-      {
-        to: '/demo-page',
-        icon: 'mdi-view-dashboard',
-        text: 'DemoPage'
       },
       {
         to: '/user-profile',

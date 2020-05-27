@@ -9,11 +9,6 @@ export default [{
     view: 'Dashboard'
   },
   {
-    path: '/demo-page',
-    name: 'User Profile',
-    view: 'DemoPage'
-  },
-  {
     path: '/user-profile',
     name: 'User Profile',
     view: 'UserProfile'
@@ -38,10 +33,5 @@ export default [{
   {
     path: '/notifications',
     view: 'Notifications'
-  },
-  {
-    path: '/upgrade',
-    name: 'Upgrade to PRO',
-    view: 'Upgrade'
   }
 ]
