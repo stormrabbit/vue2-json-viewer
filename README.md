@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # vuetify-quick-start
 
 ## Project setup
@@ -22,3 +23,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# Cheka Dashboard
+
+>>>>>>> 60477dd... Initial commit
