@@ -1,5 +1,5 @@
 <template lang="pug">
-   v-navigation-drawer(id="app-drawer" v-model="inputValue" app dark floating persistent mobile-break-point="991" width="260")
+   v-navigation-drawer(id="app-drawer" v-model="inputValue" app dark floating persistent mobile-breakpoint="991" width="260")
       v-list(class="fill-height" column)
         v-list-item
           v-list-item-avatar(color="white")
@@ -34,36 +34,36 @@ export default {
         icon: 'mdi-view-dashboard',
         text: 'Dashboard'
       },
-      {
-        to: '/user-profile',
-        icon: 'mdi-account',
-        text: 'User Profile'
-      },
-      {
-        to: '/table-list',
-        icon: 'mdi-clipboard-outline',
-        text: 'Table List'
-      },
-      {
-        to: '/typography',
-        icon: 'mdi-format-font',
-        text: 'Typography'
-      },
-      {
-        to: '/icons',
-        icon: 'mdi-chart-bubble',
-        text: 'Icons'
-      },
-      {
-        to: '/maps',
-        icon: 'mdi-map-marker',
-        text: 'Maps'
-      },
-      {
-        to: '/notifications',
-        icon: 'mdi-bell',
-        text: 'Notifications'
-      }
+      // {
+      //   to: '/user-profile',
+      //   icon: 'mdi-account',
+      //   text: 'User Profile'
+      // },
+      // {
+      //   to: '/table-list',
+      //   icon: 'mdi-clipboard-outline',
+      //   text: 'Table List'
+      // },
+      // {
+      //   to: '/typography',
+      //   icon: 'mdi-format-font',
+      //   text: 'Typography'
+      // },
+      // {
+      //   to: '/icons',
+      //   icon: 'mdi-chart-bubble',
+      //   text: 'Icons'
+      // },
+      // {
+      //   to: '/maps',
+      //   icon: 'mdi-map-marker',
+      //   text: 'Maps'
+      // },
+      // {
+      //   to: '/notifications',
+      //   icon: 'mdi-bell',
+      //   text: 'Notifications'
+      // }
     ]
   }),
   computed: {

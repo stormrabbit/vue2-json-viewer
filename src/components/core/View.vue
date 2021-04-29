@@ -1,12 +1,12 @@
 <template>
-  <v-content>
+  <v-main>
     <div id="core-view">
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>
     </div>
     <core-footer />
-  </v-content>
+  </v-main>
 </template>
 
 <script>
