@@ -2,22 +2,19 @@
   <div>
     <div>
       <v-btn @click="format" depressed color="primary">格式化</v-btn>
-      <v-btn depressed color="primary" @click="toDev"
-        >toDev</v-btn
-      >
-      <v-btn depressed color="primary" @click="toPro"
-        >toPro</v-btn
-      >
+      <v-btn @click="zip" depressed color="primary">压缩</v-btn>
+      <v-btn depressed color="primary" @click="toDev">toDev</v-btn>
+      <v-btn depressed color="primary" @click="toPro">toPro</v-btn>
     </div>
 
     <div ref="jsonContainer" class="json-container">
       <div :style="flexWidth" ref="jsonContainerLeft">
-        <json-editor class="json-left" v-model="test" v-resize="handleResize" />
+        <json-editor class="json-left" v-model="jsonData"  />
       </div>
       <div class="json-right" :style="flexWidth">
         <json-viewer
           :value="viewerData"
-          :expand-depth="2"
+          :expand-depth="4"
           copyable
           :expanded="true"
         ></json-viewer>
@@ -30,6 +27,8 @@
 import JsonEditor from "../components/editor/index";
 import JsonViewer from "vue-json-viewer";
 import { get } from "../utils/http";
+const OBJ_MODE = 0;
+const STR_MODE = 1;
 export default {
   components: {
     JsonEditor,
@@ -38,33 +37,11 @@ export default {
   data: () => ({
     eWidth: 0,
     dHeight: 0,
-    test: {
-      a: 1,
-      b: {
-        c: 2,
-        d: 3,
-        e: {
-          f: 4,
-          g: {
-            h: 5,
-          },
-        },
-        i: 6,
-        j: {
-          k: 7,
-        },
-        l: 8,
-      },
-      m: 9,
-      n: {
-        o: 0,
-        p: {
-          q: 1,
-        },
-      },
-    },
+    jsonData: {},
+    postData:"",
+    status: OBJ_MODE
   }),
-  
+
   async mounted() {
     const eWidth = this.$refs.jsonContainer.clientWidth;
     this.eWidth = eWidth;
@@ -76,17 +53,24 @@ export default {
       const dHeight = document.jsonContainer.clientHeight;
       this.dHeight = dHeight;
     };
-    const config = await get("http://localhost:3000/app");
-    console.log({ config });
-    this.test = config;
-    //  this.test = JSON.parse({config});
+    const config = await get("http://angrykitty.link:40439/v1/events");
+    this.jsonData = config[3];
+    //  this.jsonData = JSON.parse({config});
     // if(config) {
-    //   this.test = JSON.parse(config);
+    //   this.jsonData = JSON.parse(config);
     // }
   },
   computed: {
     viewerData() {
-      return typeof this.test === "object" ? this.test : JSON.parse(this.test);
+      if(this.status === OBJ_MODE) {
+             if(!this.jsonData)
+        return "";
+      return typeof this.jsonData === "object" ? this.jsonData : JSON.parse(this.jsonData);
+      }
+      if(this.status === STR_MODE) {
+        return this.postData;
+      }
+      return ""
     },
     flexWidth() {
       const width = `${this.eWidth / 2}px`;
@@ -94,29 +78,66 @@ export default {
       return { maxWidth: width, flex: 1, height, maxHeight: height };
     },
   },
+  watch: {
+    jsonData: {
+      handler(val) {
+             this.postData = this.json2line(val).replaceAll("\"", "\\\"")
+      },
+      deep: true,
+      immediate: true,
+    },
+
+  },
   methods: {
     toDev() {
-      console.log(this.test);
-      console.log(JSON.stringify(this.test).replace("\n", ""));
+      console.log(this.postData)
+      // this.temp =  this.json2line(this.jsonData).replaceAll("\"", "\\\"")
+      // // console.log(this.temp)
+      // console.log(this.temp.replaceAll("\"", "\\\""))
+      // // this.json2line(this.jsonData);
+      // // console.log(this.json2line(this.jsonData));
+      // // console.log(typeof this.jsonData);
+      // // if(typeof this.jsonData === 'string') {
+      // //   console.log(JSON.parse(this.jsonData))
+      // // }
+      // // console.log(JSON.stringify(this.jsonData).replace("\n", ""));
+    },
+    json2line(json) {
+      if(typeof json === 'number') {
+        return json
+      }
+      try {
+        let _json = (typeof json === "string") ? JSON.parse(json) : json;
+        if (Array.isArray(_json)) {
+          return `[${_json.map((item) => {
+            return this.json2line(item);
+          })}]`;
+        }
+        if(typeof _json === 'object') {
+          const val =  Object.keys(_json)
+          .map((key) => `"${key}": ${this.json2line(_json[key])}`)
+          .join(",");
+          return `{${val}}`;
+        }
+        return `"${`${_json}`.replaceAll("\"", "'")}"`
+      } catch (error) {
+        return `"${`${json}`.replaceAll("\"", "'")}"`
+      }
+    },
+    zip() {
+      this.status = STR_MODE
     },
     toPro() {},
-    // http://www.fly63.com/article/detial/6654
-    formatJson2Line(txt) {
-      /*格式化JSON源码(对象转换为JSON文本,是否为压缩模式)*/
-      if (/^\s*$/.test(txt)) {
-        return txt;
-      }
-    },
-    handleResize() {
-      const eWidth = this.$refs.jsonContainer.clientWidth;
-      console.log(eWidth);
-      const eWidthY = this.$refs.jsonContainerLeft.clientWidth;
-      console.log(eWidthY);
-    },
+    // handleResize() {
+    //   const eWidth = this.$refs.jsonContainer.clientWidth;
+    //   const eWidthY = this.$refs.jsonContainerLeft.clientWidth;
+    // },
     format() {
-      if (typeof this.test === "string") {
-        this.test = JSON.parse(this.test);
+      if ( !!this.jsonData && typeof this.jsonData === "string") {
+        this.jsonData = JSON.parse(this.jsonData);
       }
+      this.postData = this.json2line(this.jsonData).replaceAll("\"", "\\\"")
+      this.status = OBJ_MODE
     },
   },
 };
