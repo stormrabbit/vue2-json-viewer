@@ -1,6 +1,15 @@
 <template>
   <div>
-    <v-btn @click="format" depressed color="primary">格式化</v-btn>
+    <div>
+      <v-btn @click="format" depressed color="primary">格式化</v-btn>
+      <v-btn depressed color="primary" @click="toDev"
+        >toDev</v-btn
+      >
+      <v-btn depressed color="primary" @click="toPro"
+        >toPro</v-btn
+      >
+    </div>
+
     <div ref="jsonContainer" class="json-container">
       <div :style="flexWidth" ref="jsonContainerLeft">
         <json-editor class="json-left" v-model="test" v-resize="handleResize" />
@@ -20,6 +29,7 @@
 <script>
 import JsonEditor from "../components/editor/index";
 import JsonViewer from "vue-json-viewer";
+import { get } from "../utils/http";
 export default {
   components: {
     JsonEditor,
@@ -54,30 +64,8 @@ export default {
       },
     },
   }),
-  directives: {
-    // 使用局部注册指令的方式
-    resize: {
-      // 指令的名称
-      bind(el, binding) {
-        // el为绑定的元素，binding为绑定给指令的对象
-        let width = "",
-          height = "";
-        function isReize() {
-          const style = document.defaultView.getComputedStyle(el);
-          if (width !== style.width || height !== style.height) {
-            binding.value(); // 关键
-          }
-          width = style.width;
-          height = style.height;
-        }
-        el.__vueSetInterval__ = setInterval(isReize, 300);
-      },
-      unbind(el) {
-        clearInterval(el.__vueSetInterval__);
-      },
-    },
-  },
-  mounted() {
+  
+  async mounted() {
     const eWidth = this.$refs.jsonContainer.clientWidth;
     this.eWidth = eWidth;
     const dHeight = document.documentElement.clientHeight;
@@ -88,6 +76,13 @@ export default {
       const dHeight = document.jsonContainer.clientHeight;
       this.dHeight = dHeight;
     };
+    const config = await get("http://localhost:3000/app");
+    console.log({ config });
+    this.test = config;
+    //  this.test = JSON.parse({config});
+    // if(config) {
+    //   this.test = JSON.parse(config);
+    // }
   },
   computed: {
     viewerData() {
@@ -95,11 +90,23 @@ export default {
     },
     flexWidth() {
       const width = `${this.eWidth / 2}px`;
-      const height = `${this.dHeight}px`
-      return { maxWidth: width, flex: 1, height, maxHeight:height };
+      const height = `${this.dHeight}px`;
+      return { maxWidth: width, flex: 1, height, maxHeight: height };
     },
   },
   methods: {
+    toDev() {
+      console.log(this.test);
+      console.log(JSON.stringify(this.test).replace("\n", ""));
+    },
+    toPro() {},
+    // http://www.fly63.com/article/detial/6654
+    formatJson2Line(txt) {
+      /*格式化JSON源码(对象转换为JSON文本,是否为压缩模式)*/
+      if (/^\s*$/.test(txt)) {
+        return txt;
+      }
+    },
     handleResize() {
       const eWidth = this.$refs.jsonContainer.clientWidth;
       console.log(eWidth);
@@ -123,14 +130,14 @@ export default {
 }
 .json-right {
   overflow-y: scroll;
- 
-  .jv-container{
+
+  .jv-container {
     height: 100%;
   }
 }
-.json-container{
+.json-container {
   margin: 10px;
-   border: 1px solid #000;
+  border: 1px solid #000;
   display: flex;
   overflow-y: hidden;
 }

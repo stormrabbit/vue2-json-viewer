@@ -32,7 +32,7 @@ export default {
       {
         to: '/',
         icon: 'mdi-view-dashboard',
-        text: 'Dashboard'
+        text: '配置1'
       },
       // {
       //   to: '/user-profile',

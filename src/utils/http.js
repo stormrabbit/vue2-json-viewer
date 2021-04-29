@@ -5,7 +5,7 @@ import store from './../store/index';
 const instance = axios.create({
     timeout: 15 * 1000, // 15 秒超时
     baseURL: process.env.VUE_APP_ADMIN_API_HOST, // 设置域名
-    withCredentials: true, // 携带 cookie
+    // withCredentials: true, // 携带 cookie
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -27,7 +27,7 @@ instance.interceptors.request.use(config => {
     } else {
         requestList.push(request)
         //2.请求开始，改变loading状态供加载动画使用
-        store.commit('app/putLoadingState', true);
+        // store.commit('app/putLoadingState', true);
 
     }
     return config;
@@ -40,22 +40,24 @@ instance.interceptors.response.use(response => {
     requestList.splice(requestList.findIndex(item => item === request), 1);
     // 2.当请求列表为空时，更改loading状态
     if (requestList.length === 0) {
-        store.commit('app/putLoadingState', false);
+        // store.commit('app/putLoadingState', false);
     }
     try {
         const {
-            code = 40000, message = '网络连接异常', data = {},
+            code = 40000, 
+            // message = '网络连接异常',
+            data = {},
         } = response.data || {};
-        store.commit('app/putMessage', message);
+        // store.commit('app/putMessage', message);
 
         if (code === 100) {
             return Promise.resolve({
                 code
             });
         }
-        if (code !== 20000) {
-            return Promise.resolve({});
-        }
+        // if (code !== 200) {
+        //     return Promise.resolve({});
+        // }
         return Promise.resolve(data);
     } catch (ex) {
         store.commit('app/putMessage', ex);
